@@ -46,7 +46,7 @@ poker_plot <- ggplot(filtered_data, aes(y = rank, x = selected_player_game_no)) 
         axis.ticks.y = element_blank() ,
         axis.ticks.x = element_blank() ,
         axis.text.y = element_blank(),
-        axis.text.x = element_text(color = "white"),
+        axis.text.x = element_text(color = "white", size = 6),
         plot.title = element_text(size = 7 , color = "white"),
         axis.line.x = element_blank(),
         axis.line.y = element_blank(),
