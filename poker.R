@@ -19,6 +19,10 @@ rounds_selected_player <- poker %>% filter(player == i) %>% select(round) %>% un
 filtered_data <- poker %>% filter(round %in% rounds_selected_player$round) %>%
 #create selected_player_game_no to show game number for selected player
   mutate(selected_player_game_no = dense_rank(round)) %>%
+# in case of a tie for a place, we need to create rank_in_plot to make sure we have correct number of back of cards
+  group_by(selected_player_game_no) %>%
+  mutate(rank_in_plot = row_number()) %>%
+  ungroup() %>%
 #to create variety change card type
   mutate(card_type = case_when(
     selected_player_game_no %% 4 == 1 ~ "spades",
@@ -34,7 +38,7 @@ filtered_data <- poker %>% filter(round %in% rounds_selected_player$round) %>%
   )
 
 #create ggplot
-poker_plot <- ggplot(filtered_data, aes(y = rank, x = selected_player_game_no)) +
+poker_plot <- ggplot(filtered_data, aes(y = rank_in_plot, x = selected_player_game_no)) +
   geom_image(aes(image = paste0('./images/',card_to_use)), size = 0.06) +
   labs(title = paste0("Poker Standings for ", selected_player)) +
   theme_classic() +
