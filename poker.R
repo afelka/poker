@@ -58,11 +58,12 @@ poker_plot <- ggplot(filtered_data, aes(y = rank_in_plot, x = selected_player_ga
         plot.background = element_rect(fill = "#35654d", color = NA))
 
 #depending on how many times selected player played, change the width of saved png
-applied_width <- ifelse(max(filtered_data$selected_player_game_no) > 20, 8,
+applied_width <- ifelse(max(filtered_data$selected_player_game_no) > 30, 10,
+                 ifelse(max(filtered_data$selected_player_game_no) > 20, 8,
                  ifelse(max(filtered_data$selected_player_game_no) > 10, 6,
-                 ifelse(max(filtered_data$selected_player_game_no) >= 3, 4,2)))
+                 ifelse(max(filtered_data$selected_player_game_no) >= 3, 4,2))))
 
 #save ggplot
-ggsave(paste0("poker_",selected_player,".png"), plot = poker_plot, width = applied_width, height = 4, dpi = 300)
+ggsave(paste0("poker_",selected_player,".png"), plot = poker_plot, width = applied_width, height = 5, dpi = 300)
 
 }
